@@ -16,6 +16,7 @@ int main(int argc, char* argv[]) {
 	std::cout << std::format("{}-format\n",s1);// C++20
 	std::println("{}-{}!", s1, "println" );    // C++23
 	std::print("{}-{}!\n", s1, "print" );      // C++23
+	std::cout << "15" << std::endl;
 	
 	return 0;
 }
