@@ -10,6 +10,21 @@ Sprite::Sprite(SDL_Texture* texture, float x, float y, float w, float h)
     rect.h = h;
 }
 
+/*Sprite::Sprite(std::string name, float x, float y)
+{
+    -----När vi har en Engine-instans som heter t.ex. engine----
+    
+     image = IMG_LoadTexture(engine.getRen(), 
+         (cnts::gResPath + "/images/" + name).c_str());
+    
+     if (!image) {
+         std::cerr << "Could not load image: " << name << std::endl;
+         exit(EXIT_FAILURE);
+     }
+    
+    rect = { x, y, (float)image->w, (float)image->h };
+}*/
+
 
 Sprite::~Sprite()
 {
