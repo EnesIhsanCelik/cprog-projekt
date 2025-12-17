@@ -1,53 +1,40 @@
-#include <SDL3/SDL.h>
 #include "Sprite.h"
 #include "Engine.h"
+#include <SDL3_image/SDL_image.h>
+#include <iostream>
 
-Sprite::Sprite(SDL_Texture* texture, float x, float y, float w, float h)
-    : texture(texture)
+namespace demo
 {
-    rect.x = x;
-    rect.y = y;
-    rect.w = w;
-    rect.h = h;
-}
+    Sprite::~Sprite() {
+        if (image) {
+            SDL_DestroyTexture(image);
+        }
+    }
 
+    Sprite::Sprite(std::string name, float x, float y)
+    {
+        // Build the path: ./resources/ + images/ + background.png
+        std::string fullPath = constants::gResPath + "images/" + name;
+        image = IMG_LoadTexture(eng.getRen(), fullPath.c_str());
 
+        if (!image)
+        {
+            std::cerr << "Failed to load texture: " << SDL_GetError() << std::endl;
+            exit(EXIT_FAILURE);
+        }
 
-Sprite::Sprite(std::string name, float x, float y)          //når alla bilder 
-{
-    //----När vi har en Engine-instans som heter t.ex. engine----
-    
-     image = IMG_LoadTexture(engine.getRen(), 
-         (cnts::gResPath + "/images/" + name).c_str());
-    
-     if (!image) {
-         std::cerr << "Could not load image: " << name << std::endl;
-         exit(EXIT_FAILURE);
-     }
-    
-    rect = { x, y, (float)image->w, (float)image->h };
-}
+        rect.x = x;
+        rect.y = y;
+        rect.w = static_cast<float>(image->w);
+        rect.h = static_cast<float>(image->h);
+    }
+    bool Sprite::collidedWith(SpritePtr other) const
+    {
+        return SDL_HasRectIntersectionFloat(&rect, &other->rect);
+    }
 
-
-Sprite::~Sprite()
-{
-    if (texture) {
-        SDL_DestroyTexture(texture);
+    void Sprite::draw() const
+    {
+        SDL_RenderTexture(eng.getRen(), image, NULL, &rect);
     }
 }
-
-void Sprite::draw(SDL_Renderer* renderer) const
-{
-    if(!alive) return;
-    SDL_RenderTexture(renderer, texture, NULL, &rect);
-}
-
-
-bool Sprite::intersects(const SpritePtr other) const
-{
-    return !(rect.x + rect.w < other->rect.x ||
-             rect.x > other->rect.x + other->rect.w ||
-             rect.y + rect.h < other->rect.y ||
-             rect.y > other->rect.y + other->rect.h);
-}
-
