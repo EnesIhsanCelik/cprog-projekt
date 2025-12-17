@@ -18,8 +18,8 @@ namespace constants
 	const std::string rocketship2_str {gResPath + "images/rocketship-2.png"};
 	const std::string alien_str {gResPath + "images/enemy.png"}; // fixed typo
 	const std::string alien2_str {gResPath + "images/enemy-1.png"}; // added ; in the end each line
-	const std::string background_str {gResPath + "background-alternativ-1.jpg"}; 
-	const std::string background2_str {gResPath + "background-alternativ-2.png"};
+	const std::string background_str {gResPath + "images/background-alternativ-1.jpg"}; 
+	const std::string background2_str {gResPath + "images/background-alternativ-2.png"};
 	const std::string bullet_str {gResPath + "images/bullet.png"};
 }
 
