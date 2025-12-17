@@ -1,56 +1,50 @@
-#include <SDL3/SDL.h>
-#include <memory>
-#include <vector>
 #include "Engine.h"
 #include "Sprite.h"
 
-
-Engine::Engine()
+namespace demo
 {
-    SDL_Init(SDL_INIT_VIDEO);
-    win = SDL_CreateWindow("Our Game", cnts::gScreenWidth, cnts::gScreenHeight, 0);
-    ren = SDL_CreateRenderer(win, NULL);
-    srand(time(NULL));
-}
 
-Engine::~Engine()
-{
-    SDL_DestroyRenderer(ren);
-    SDL_DestroyWindow(win);
-}
-
-void Engine::addSprite(SpritePtr sprite)
-{
-    added.push_back(sprite);
-}
-
-void Engine::removeSprite(SpritePtr sprite)
-{
-    removed.push_back(sprite);
-}
-
-void Engine::gameLoop()
-{
-    const int FPS = 60;
-    const int TICKINTERVAL = 1000 / FPS;
-    Uint64 nextTick = SDL_GetTicks() + TICKINTERVAL;
-    bool running = true;
-
-    while (running)
+    Engine::Engine()
     {
-        SDL_Event e;
-        while (SDL_PollEvent(&e))
+        win = SDL_CreateWindow("Our Game", constants::gScreenWidth, constants::gScreenHeight, 0);
+        ren = SDL_CreateRenderer(win, NULL);
+    }
+
+    Engine::~Engine()
+    {
+        SDL_DestroyRenderer(ren);
+        SDL_DestroyWindow(win);
+    }
+
+    void Engine::add(SpritePtr spr)
+    {
+        added.push_back(spr);
+    }
+
+
+    void Engine::run()
+    {
+        const int FPS = 60;
+        const int TICKINTERVAL = 1000 / FPS;
+        bool running = true;
+
+        while (running)
         {
-            switch (e.type)
+            Uint64 nextTick = SDL_GetTicks() + TICKINTERVAL;
+            SDL_Event event;
+
+            while (SDL_PollEvent(&event))
             {
-            case SDL_EVENT_QUIT:
-                running = false;
-                break;
-            /*case SDL_EVENT_MOUSE_BUTTON_DOWN:
-                for (SpritePtr spr : sprites)
-                    spr->onMouseDown(e);*/
-                break;
-                // Handle other events as needed
+                switch (event.type)
+                {
+                case SDL_EVENT_QUIT:
+                    running = false;
+                    break;
+                case SDL_EVENT_MOUSE_BUTTON_DOWN:
+                    for (SpritePtr spr : sprites)
+                        spr->onMouseDown(event);
+                    break;
+                }
             }
 
             for (SpritePtr spr : sprites)
@@ -62,30 +56,34 @@ void Engine::gameLoop()
 
             for (SpritePtr spr : removed)
             {
-                for (int pos = 0; pos < sprites.size(); pos++)
+                for (size_t pos = 0; pos < sprites.size(); pos++)
                 {
-                    auto iter = sprites.begin() + pos;
-                    if (spr == *iter)
+                    if (spr == sprites[pos])
                     {
-                        sprites.erase(iter);
+                        sprites.erase(sprites.begin() + pos);
                         break;
                     }
                 }
             }
             removed.clear();
 
+            // 3. Handle COLLISIONS
             for (SpritePtr sp1 : sprites)
+            {
                 for (SpritePtr sp2 : sprites)
-                    if (sp1 != sp2 && sp1->intersects(sp2))
+                {
+                    if (sp1 != sp2 && sp1->collidedWith(sp2))
                     {
-                        sp1->onCollision(sp2);
-                        sp2->onCollision(sp1);
+                        sp1->onCollisionWith(sp2);
+                        sp2->onCollisionWith(sp1);
                     }
+                }
+            }
 
             SDL_SetRenderDrawColor(ren, 255, 255, 255, 255);
             SDL_RenderClear(ren);
             for (SpritePtr spr : sprites)
-                spr->draw(ren);
+                spr->draw(); 
             SDL_RenderPresent(ren);
 
             Sint64 delay = nextTick - SDL_GetTicks();
@@ -93,6 +91,6 @@ void Engine::gameLoop()
                 SDL_Delay(delay);
         }
     }
-}
 
-Engine eng;
+    Engine eng;
+}
