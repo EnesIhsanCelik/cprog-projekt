@@ -1,5 +1,6 @@
 #include <SDL3/SDL.h>
 #include "Sprite.h"
+#include "Engine.h"
 
 Sprite::Sprite(SDL_Texture* texture, float x, float y, float w, float h)
     : texture(texture)
@@ -42,11 +43,11 @@ void Sprite::draw(SDL_Renderer* renderer) const
 }
 
 
-bool Sprite::intersects(const Sprite& other) const
+bool Sprite::intersects(const SpritePtr other) const
 {
-    return !(rect.x + rect.w < other.rect.x ||
-             rect.x > other.rect.x + other.rect.w ||
-             rect.y + rect.h < other.rect.y ||
-             rect.y > other.rect.y + other.rect.h);
+    return !(rect.x + rect.w < other->rect.x ||
+             rect.x > other->rect.x + other->rect.w ||
+             rect.y + rect.h < other->rect.y ||
+             rect.y > other->rect.y + other->rect.h);
 }
 
