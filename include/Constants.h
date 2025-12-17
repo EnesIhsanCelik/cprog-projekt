@@ -13,10 +13,14 @@ namespace constants
 	// PATH'S TO ALL YOUR EXTERNAL RESOURCES using 'gResPath'
 	//const std::string bg_str  { gResPath + "images/bg.jpg" };
     //const std::string sample_str { gResPath + "sounds/sample.wav"};
-	const std::string rocketship_str {gResPath + "images/rocketship.png"}   //ger etiketter på bilderna som ska nås
-	const std::string alien1_str {gResPath + "image/deafult.png"}
-	const std::string alien2_str {gResPath + "images/32280-8-space-invaders-file.png"}
-	const std::string background_str {gResPath + "baclground-alternativ-1.jpg"} 
+	
+	const std::string rocketship_str {gResPath + "images/rocketship.png"};  //ger etiketter på bilderna som ska nås
+	const std::string rocketship2_str {gResPath + "images/rocketship-2.png"};
+	const std::string alien_str {gResPath + "images/enemy.png"}; // fixed typo
+	const std::string alien2_str {gResPath + "images/enemy-1.png"}; // added ; in the end each line
+	const std::string background_str {gResPath + "background-alternativ-1.jpg"}; 
+	const std::string background2_str {gResPath + "background-alternativ-2.png"};
+	const std::string bullet_str {gResPath + "images/bullet.png"};
 }
 
 #endif

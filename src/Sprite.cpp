@@ -11,15 +11,11 @@ namespace demo
         }
     }
 
-    Sprite::Sprite(std::string name, float x, float y)
-    {
-        // Build the path: ./resources/ + images/ + background.png
-        std::string fullPath = constants::gResPath + "images/" + name;
-        image = IMG_LoadTexture(eng.getRen(), fullPath.c_str());
-
-        if (!image)
-        {
-            std::cerr << "Failed to load texture: " << SDL_GetError() << std::endl;
+    Sprite::Sprite(std::string path, float x, float y) {
+        image = IMG_LoadTexture(eng.getRen(), path.c_str());
+        
+        if (!image) {
+            std::cerr << "Failed to load texture at: " << path << std::endl;
             exit(EXIT_FAILURE);
         }
 
