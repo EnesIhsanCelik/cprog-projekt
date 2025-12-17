@@ -12,11 +12,12 @@ public:
 
     void draw(SDL_Renderer* renderer) const;
     virtual void update(float dt) = 0;
+    virtual void tick() = 0;
     
     void move(float dx, float dy) { rect.x += dx; rect.y += dy; }
 
     bool intersects(const Sprite& other) const;
-    virtual void onCollision(Sprite* other) {};
+    virtual void onCollision(SpritePtr other) {};
     
     void destroy() { alive = false; }
     bool isAlive() const { return alive; }
