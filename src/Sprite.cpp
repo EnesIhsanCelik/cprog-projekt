@@ -10,9 +10,11 @@ Sprite::Sprite(SDL_Texture* texture, float x, float y, float w, float h)
     rect.h = h;
 }
 
-/*Sprite::Sprite(std::string name, float x, float y)
+
+
+Sprite::Sprite(std::string name, float x, float y)          //når alla bilder 
 {
-    -----När vi har en Engine-instans som heter t.ex. engine----
+    //----När vi har en Engine-instans som heter t.ex. engine----
     
      image = IMG_LoadTexture(engine.getRen(), 
          (cnts::gResPath + "/images/" + name).c_str());
@@ -23,7 +25,7 @@ Sprite::Sprite(SDL_Texture* texture, float x, float y, float w, float h)
      }
     
     rect = { x, y, (float)image->w, (float)image->h };
-}*/
+}
 
 
 Sprite::~Sprite()
