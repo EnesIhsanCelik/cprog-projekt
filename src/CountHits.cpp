@@ -1,5 +1,6 @@
 #include <string>
 #include "CountHits.h"
+#include "Engine.h"
 
 namespace game {
     
