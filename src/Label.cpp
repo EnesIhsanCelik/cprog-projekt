@@ -3,6 +3,7 @@
 #include <SDL3/SDL.h>
 #include <SDL3_ttf/SDL_ttf.h>
 #include "Engine.h"
+#include "Sprite.h"
 namespace demo {
     LabelPtr Label::make(float x, float y, float w, float h, std::string txt) {
         return LabelPtr(new Label(x, y, w, h, txt));
