@@ -1,5 +1,7 @@
 #include "Rocketship.h"
 #include "Constants.h"
+#include "Bullet.h"
+#include "Engine.h"
 
 Rocketship::Rocketship() : Sprite(constants::rocketship_str, 0, 0) {
     rect.w = 64.f;
@@ -23,5 +25,9 @@ void Rocketship::onKeyDown(const SDL_Event& event) {
 }
 
 void Rocketship::shoot() {
-    // Shooting logic here
+    float bulletX = rect.x + (rect.w / 2); 
+    float bulletY = rect.y;
+
+    auto bullet = std::make_shared<Bullet>(bulletX, bulletY, 10.0f);
+    demo::eng.add(bullet);
 }

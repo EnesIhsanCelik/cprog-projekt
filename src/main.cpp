@@ -1,5 +1,8 @@
 #include "Engine.h"
 #include "Sprite.h"
+#include "Rocketship.h"
+#include "Label.h"
+#include "Constants.h"
 #include <FallingEnemy.h>
 
 using namespace demo;
@@ -13,6 +16,9 @@ public:
 int main(int argc, char* argv[]) {
     demo::SpritePtr bg = std::make_shared<Background>();
     demo::eng.add(bg);
+
+    demo::SpritePtr player = std::make_shared<Rocketship>();
+    demo::eng.add(player);
     
     demo::SpritePtr e1 = std::make_shared<FallingEnemy>(constants::alien_str, 100, -40, 2.0f);
     demo::SpritePtr e2 = std::make_shared<FallingEnemy>(constants::alien2_str, 300, -200, 1.5f);
