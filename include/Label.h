@@ -18,7 +18,7 @@ class Label: public Sprite {
     
     void setText(std::string newText);
     
-    std:string getText() const { return text; }
+    std::string getText() const { return text; }
 
     protected:
     Label(float x, float y, float w, float h, std::string txt);
