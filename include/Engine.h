@@ -3,6 +3,7 @@
 #include <vector>
 #include <memory>
 #include "Constants.h"
+#include <SDL3_ttf/SDL_ttf.h>
 
 namespace demo {
     class Sprite;
@@ -15,6 +16,7 @@ namespace demo {
 
         SDL_Renderer* getRen() const { return ren; }
         SDL_Window* getWin() const { return win; }
+        TTF_Font* getFont() const { return font; }
 
         void add(SpritePtr spr);
         void remove(SpritePtr spr);
@@ -23,6 +25,7 @@ namespace demo {
     private:
         SDL_Window* win;
         SDL_Renderer* ren;
+        TTF_Font* font;
         // Pointers to track sprites throughout their lifecycle
         std::vector<SpritePtr> sprites, added, removed;
     };

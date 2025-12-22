@@ -21,6 +21,9 @@ namespace demo
         added.push_back(spr);
     }
 
+    void Engine::remove(SpritePtr spr) {
+        removed.push_back(spr);
+    }
 
     void Engine::run()
     {
