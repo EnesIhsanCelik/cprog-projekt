@@ -7,10 +7,10 @@ namespace demo {
         
         public:
         virtual ~GameObjects(){}
-        virtual void draw() const{};
+        virtual void draw() const{} = 0;
         const SDL_FRect& getRect() const { return rect; }
         virtual void onKeyUp(const SDL_Event& event){}
-        virtual void onKeyDown(const SDL_Event& event){}
+        //virtual void onKeyDown(const SDL_Event& event){}
         virtual void onKeyLeft(const SDL_Event& event){}
         virtual void onKeyRight(const SDL_Event& event){}
         
