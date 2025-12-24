@@ -15,4 +15,12 @@ void Bullet::tick() {
     if (getRect().y + getRect().h < 0) {
         demo::eng.remove(shared_from_this());
     }
+}
+
+void Bullet::onCollisionWith(demo::SpritePtr other) {
+    if (std::dynamic_pointer_cast<::FallingEnemy>(other))
+    {
+        demo::eng.remove(other);
+        demo::eng.remove(shared_from_this());
+    }
 };
