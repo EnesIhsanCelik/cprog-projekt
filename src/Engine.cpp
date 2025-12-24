@@ -1,17 +1,30 @@
 #include "Engine.h"
 #include "Sprite.h"
+#include "FallingEnemy.h"
+#include <SDL3/SDL.h>
+#include <SDL3_ttf/SDL_ttf.h>
+#include <iostream>
+#include <cstdlib> // Added for std::rand()
 
 namespace demo
 {
-
     Engine::Engine()
     {
+        if (!TTF_Init())
+        {
+            std::cerr << "TTF_Init failed: " << SDL_GetError() << std::endl;
+        }
         win = SDL_CreateWindow("Our Game", constants::gScreenWidth, constants::gScreenHeight, 0);
         ren = SDL_CreateRenderer(win, NULL);
+
+        std::string fontPath = constants::gResPath + "fonts/arial.ttf";
+        font = TTF_OpenFont(fontPath.c_str(), 24);
     }
 
     Engine::~Engine()
     {
+        if (font) TTF_CloseFont(font);
+        TTF_Quit();
         SDL_DestroyRenderer(ren);
         SDL_DestroyWindow(win);
     }
@@ -21,12 +34,20 @@ namespace demo
         added.push_back(spr);
     }
 
-    void Engine::remove(SpritePtr spr) {
+    void Engine::remove(SpritePtr spr)
+    {
         removed.push_back(spr);
+    }
+
+    TTF_Font *Engine::getFont() const
+    {
+        return font;
     }
 
     void Engine::run()
     {
+        Uint64 lastSpawnTime = SDL_GetTicks();
+        Uint64 spawnInterval = 2000;
         const int FPS = 60;
         const int TICKINTERVAL = 1000 / FPS;
         bool running = true;
@@ -47,8 +68,30 @@ namespace demo
                     for (SpritePtr spr : sprites)
                         spr->onMouseDown(event);
                     break;
+                case SDL_EVENT_KEY_DOWN:
+                    for (SpritePtr spr : sprites)
+                        spr->onKeyDown(event);
+                    break;
                 }
             }
+
+            // NEW SPAWNING LOGIC START FOR ENEMIES
+            Uint64 currentTime = SDL_GetTicks();
+            if (currentTime > lastSpawnTime + spawnInterval)
+            {
+                float randomX = static_cast<float>(std::rand() % (constants::gScreenWidth - 100));
+                
+                auto newEnemy = std::make_shared<::FallingEnemy>(
+                    constants::alien_str, 
+                    randomX, 
+                    -100.0f,
+                    2.0f + (std::rand() % 4)
+                );
+                
+                this->add(newEnemy);
+                lastSpawnTime = currentTime;
+            }
+            // SPAWNING LOGIC END
 
             for (SpritePtr spr : sprites)
                 spr->tick();
@@ -83,7 +126,7 @@ namespace demo
                 }
             }
 
-            SDL_SetRenderDrawColor(ren, 255, 255, 255, 255);
+            SDL_SetRenderDrawColor(ren, 0, 0, 0, 255); 
             SDL_RenderClear(ren);
             for (SpritePtr spr : sprites)
                 spr->draw(); 
@@ -94,6 +137,5 @@ namespace demo
                 SDL_Delay(delay);
         }
     }
-
     Engine eng;
 }

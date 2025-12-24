@@ -1,9 +1,10 @@
 #pragma once
 #include <SDL3/SDL.h>
+#include <SDL3_ttf/SDL_ttf.h>
 #include <vector>
 #include <memory>
 #include "Constants.h"
-#include <SDL3_ttf/SDL_ttf.h>
+
 
 namespace demo {
     class Sprite;
@@ -16,7 +17,7 @@ namespace demo {
 
         SDL_Renderer* getRen() const { return ren; }
         SDL_Window* getWin() const { return win; }
-        TTF_Font* getFont() const { return font; }
+        TTF_Font* getFont() const;
 
         void add(SpritePtr spr);
         void remove(SpritePtr spr);
@@ -26,10 +27,8 @@ namespace demo {
         SDL_Window* win;
         SDL_Renderer* ren;
         TTF_Font* font;
-        // Pointers to track sprites throughout their lifecycle
         std::vector<SpritePtr> sprites, added, removed;
     };
 
-    // Tells other files that 'eng' exists in Engine.cpp
     extern Engine eng;
 }
