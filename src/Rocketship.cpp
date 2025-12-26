@@ -10,7 +10,24 @@ Rocketship::Rocketship() : Sprite(constants::rocketship_str, 0, 0) {
     rect.x = (constants::gScreenWidth / 2.0f) - (rect.w / 2.0f);
     rect.y = constants::gScreenHeight - rect.h - 20.0f;
 
+    if (!SDL_LoadWAV(constants::shoot_sound_str.c_str(), &shotSpec, &shotBuf, &shotLen)) {
+        SDL_Log("Failed to load shoot sound: %s", SDL_GetError());
+    }
+
+    shotStream = SDL_OpenAudioDeviceStream(SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK, &shotSpec, nullptr, nullptr);
+
+    if (shotStream) {
+        SDL_ResumeAudioStreamDevice(shotStream);
+    }
 }
+
+
+Rocketship::~Rocketship() 
+{
+    if (shotStream) SDL_DestroyAudioStream(shotStream);
+    if (shotBuf) SDL_free(shotBuf);
+}
+
 
 void Rocketship::tick() {
     const bool* keys = SDL_GetKeyboardState(NULL);
