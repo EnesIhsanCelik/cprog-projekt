@@ -49,15 +49,13 @@ void Rocketship::onKeyDown(const SDL_Event &event)
     }
 }
 
-void Rocketship::shoot()
+void Rocketship::shoot() 
 {
-
     if (shotStream && shotBuf)
     {
         SDL_PutAudioStreamData(shotStream, shotBuf, shotLen);
     }
-
-    float bulletX = rect.x + (rect.w / 2);
+    float bulletX = rect.x + (rect.w / 2); 
     float bulletY = rect.y;
 
     auto bullet = std::make_shared<Bullet>(bulletX, bulletY, 10.0f);
