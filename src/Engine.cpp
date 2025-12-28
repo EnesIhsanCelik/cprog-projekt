@@ -37,6 +37,10 @@ namespace demo
 
     Engine::~Engine()
     {
+        sprites.clear();
+        added.clear();
+        removed.clear();
+        
         if (font)
             TTF_CloseFont(font);
         TTF_Quit();
@@ -117,6 +121,11 @@ namespace demo
                             NULL};
 
                         int buttonid;
+                        if (SDL_ShowMessageBox(&messageboxdata, &buttonid) < 0)
+                        {
+                            SDL_Log("error displaying message box");
+                            running = false; 
+                        }
 
                         if (buttonid == 1)
                         {
