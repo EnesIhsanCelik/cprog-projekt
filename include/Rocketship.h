@@ -15,5 +15,5 @@ private:
     SDL_AudioSpec shotSpec;
     Uint8* shotBuf = nullptr;
     Uint32 shotLen = 0;
-    SDL_AudioStream* shotStream = nullPtr;
+    SDL_AudioStream* shotStream = nullptr;
 };

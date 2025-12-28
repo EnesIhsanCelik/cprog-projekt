@@ -22,12 +22,13 @@ namespace demo
         if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0)
         {
             std::cerr << "SDL_Init failed: " << SDL_GetError() << std::endl;
-            exit(EXIT_FAILURE);
         }
+
         if (!TTF_Init())
         {
             std::cerr << "TTF_Init failed: " << SDL_GetError() << std::endl;
         }
+        
         win = SDL_CreateWindow("Our Game", constants::gScreenWidth, constants::gScreenHeight, 0);
         ren = SDL_CreateRenderer(win, NULL);
 
