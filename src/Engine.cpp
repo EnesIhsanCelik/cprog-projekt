@@ -135,7 +135,6 @@ namespace demo
                         }
                         else
                         {
-                            // Användaren klickade på "Retry" (id 0) eller stängde rutan
                             sprites.clear();
                             added.clear();
                             removed.clear();
