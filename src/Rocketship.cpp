@@ -53,6 +53,7 @@ void Rocketship::shoot()
 {
     if (shotStream && shotBuf)
     {
+        SDL_ClearAudioStream(shotStream);
         SDL_PutAudioStreamData(shotStream, shotBuf, shotLen);
     }
     float bulletX = rect.x + (rect.w / 2); 
