@@ -3,6 +3,7 @@
 #include "Label.h"
 #include "FallingEnemy.h"
 #include "Rocketship.h"
+#include "Background.h"
 #include <SDL3/SDL.h>
 #include <SDL3_ttf/SDL_ttf.h>
 #include <iostream>
@@ -10,13 +11,6 @@
 
 namespace demo
 {
-    class Background : public demo::Sprite
-    {
-    public:
-        Background() : Sprite(constants::background2_str, 0, 0) {}
-        void tick() override {}
-    };
-
     Engine::Engine()
     {
         if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0)
@@ -152,12 +146,16 @@ namespace demo
                         
                             running = false;
                         }
+
+                        // För att Engine:n ska vara generiskt kan detta flyttas till main.cpp senare
                         else
                         {
                             sprites.clear();
                             added.clear();
                             removed.clear();
-                            this->add(std::make_shared<Background>());
+
+                            this->add(std::make_shared<Background>(0));
+                            this->add(std::make_shared<Background>(-constants::gScreenHeight));
                             this->add(std::make_shared<Rocketship>());
                             lastSpawnTime = SDL_GetTicks();
                         }
