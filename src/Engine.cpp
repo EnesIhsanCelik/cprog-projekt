@@ -82,15 +82,20 @@ namespace demo
                     }
                 }
 
-
-
                 if (event.type == SDL_EVENT_QUIT)
                     running = false;
 
                 for (SpritePtr spr : sprites)
                 {
-                    spr->onKeyDown(event);
-                    spr->onMouseDown(event);
+                    if(event.type == SDL_EVENT_KEY_DOWN)
+                    {
+                        spr->onKeyDown(event);
+                    }
+
+                    else if (event.type == SDL_EVENT_MOUSE_BUTTON_DOWN)
+                    {
+                        spr->onMouseDown(event);
+                    }
                 }
             }
 
