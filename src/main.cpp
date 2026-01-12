@@ -1,35 +1,38 @@
 #include "Engine.h"
 #include "Sprite.h"
 #include "Rocketship.h"
+#include "FallingEnemy.h"
 #include "Label.h"
-#include "Constants.h"
-#include <FallingEnemy.h>
+#include "CountHits.h"
+#include "Bullet.h"
+#include "Background.h"
+
+
 
 using namespace demo;
 
-class Background : public demo::Sprite {
-public:
-    Background() : Sprite(constants::background_str, 0, 0) {}
-    void tick() override {} 
-};
+void setupGame()
+{
+    // Skapa och lägg till bakgrunden
+    auto bg1 = std::make_shared<demo::Background>(0);
+    auto bg2 = std::make_shared<demo::Background>(-constants::gScreenHeight);
+    demo::eng.add(bg1);
+    demo::eng.add(bg2);
+
+    // Skapa och lägg till spelaren
+    auto player = std::make_shared<Rocketship>();
+    demo::eng.add(player);
+
+    // Skapa och lägg till poängetiketten
+    auto scoreLabel = demo::Label::make(500, 20, 120, 30, "Score: 0");
+    demo::eng.add(scoreLabel);
+    
+    // Skapa och lägg till CountHits för att hålla koll på poäng
+    game::CountHits::setLabel(scoreLabel);
+}
 
 int main(int argc, char* argv[]) {
-    demo::SpritePtr bg = std::make_shared<Background>();
-    demo::eng.add(bg);
-
-    demo::SpritePtr player = std::make_shared<Rocketship>();
-    demo::eng.add(player);
-    
-    demo::SpritePtr e1 = std::make_shared<FallingEnemy>(constants::alien_str, 100, -40, 2.0f);
-    demo::SpritePtr e2 = std::make_shared<FallingEnemy>(constants::alien2_str, 300, -200, 1.5f);
-
-    label = Label::make(640, 0, 50, 40, "0");
-    label2 = Label::make(600, 0, 50, 40, "Score:");
-
-    demo::eng.add(e1);
-    demo::eng.add(e2);
-    demo::eng.add(label);
-    demo::eng.add(label2);
+    setupGame();
     demo::eng.run();
 
     return 0;
