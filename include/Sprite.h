@@ -19,6 +19,7 @@ namespace demo {
         void move(float dx, float dy) { rect.x += dx; rect.y += dy; }
         bool collidedWith(SpritePtr other) const;
         virtual void onCollisionWith(SpritePtr other) {}
+        virtual void onResize(int newWidth, int newHeight) {}
 
         Sprite(const Sprite& other) = delete;
         const Sprite& operator=(const Sprite& other) = delete;
