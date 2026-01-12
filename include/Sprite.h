@@ -20,6 +20,7 @@ namespace demo {
         bool collidedWith(SpritePtr other) const;
         virtual void onCollisionWith(SpritePtr other) {}
         virtual void onResize(int newWidth, int newHeight) {}
+        SDL_Texture* getTexture() const { return texture; }
 
         Sprite(const Sprite& other) = delete;
         const Sprite& operator=(const Sprite& other) = delete;
@@ -31,5 +32,6 @@ namespace demo {
     private:
         SDL_FRect rect;
         SDL_Texture* image; 
+        SDL_Texture* texture;
     };
 }
