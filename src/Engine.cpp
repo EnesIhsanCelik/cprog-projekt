@@ -29,7 +29,7 @@ namespace demo
             std::cerr << "TTF_Init failed: " << SDL_GetError() << std::endl;
         }
         
-        win = SDL_CreateWindow("Our Game", constants::gScreenWidth, constants::gScreenHeight, 0);
+        win = SDL_CreateWindow("Our Game", constants::gScreenWidth, constants::gScreenHeight, SDL_WINDOW_RESIZABLE);
         ren = SDL_CreateRenderer(win, NULL);
 
         std::string fontPath = constants::gResPath + "fonts/arial.ttf";
@@ -70,6 +70,13 @@ namespace demo
 
             while (SDL_PollEvent(&event))
             {
+                if(event.type == SDL_EVENT_WINDOW_RESIZED)
+                {
+                    int newWidth = event.window.data1;
+                    int newHeight = event.window.data2;
+                    SDL_Log("Window resized to %d x %d", constants::gScreenWidth, constants::gScreenHeight);
+                }
+                
                 if (event.type == SDL_EVENT_QUIT)
                     running = false;
 
