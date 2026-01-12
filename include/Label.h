@@ -7,7 +7,7 @@ namespace demo {
     class Label;
     typedef std::shared_ptr<Label> LabelPtr;
 
-    class Label : public GameObjects {
+    class Label : public Sprite {
     public:
         static LabelPtr make(float x, float y, float w, float h, std::string txt);
         ~Label() {}

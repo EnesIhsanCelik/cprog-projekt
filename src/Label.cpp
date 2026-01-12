@@ -10,8 +10,12 @@ namespace demo {
         return LabelPtr(new Label(x, y, w, h, txt));
     }
     
-    Label::Label(float x, float y, float w, float h, std::string txt): GameObjects(x, y, w, h), text(txt) {
+    Label::Label(float x, float y, float w, float h, std::string txt):
+        Sprite("", x, y), text(txt) 
+    {
         texture = nullptr;
+        rect.w = w;
+        rect.h = h;
         setText(text);
     }
     
