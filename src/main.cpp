@@ -23,6 +23,14 @@ void setupGame()
     auto player = std::make_shared<Rocketship>();
     demo::eng.add(player);
 
+    // Skapa och lägg till fiender
+    auto e1 = std::make_shared<FallingEnemy>(constants::alien_str, 100, -40, 2.0f);
+    auto e2 = std::make_shared<FallingEnemy>(constants::alien2_str, 300, -200, 1.5f);
+
+    // Lägg till fienderna i spelet
+    demo::eng.add(e1);
+    demo::eng.add(e2);
+
     // Skapa och lägg till poängetiketten
     auto scoreLabel = demo::Label::make(500, 20, 120, 30, "Score: 0");
     demo::eng.add(scoreLabel);
