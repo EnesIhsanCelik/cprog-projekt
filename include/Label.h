@@ -16,6 +16,7 @@ namespace demo {
         void tick() {}
         void setText(std::string newText);
         std::string getText() const { return text; }
+        void onResize(int newWidth, int newHeight) override;
 
     protected:
         Label(float x, float y, float w, float h, std::string txt);

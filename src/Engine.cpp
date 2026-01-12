@@ -72,11 +72,18 @@ namespace demo
             {
                 if(event.type == SDL_EVENT_WINDOW_RESIZED)
                 {
-                    int newWidth = event.window.data1;
-                    int newHeight = event.window.data2;
+                    constants::gScreenWidth = event.window.data1;
+                    constants::gScreenHeight = event.window.data2;
                     SDL_Log("Window resized to %d x %d", constants::gScreenWidth, constants::gScreenHeight);
+
+                    for(SpritePtr spr : sprites)
+                    {
+                        spr->onResize(constants::gScreenWidth, constants::gScreenHeight);
+                    }
                 }
-                
+
+
+
                 if (event.type == SDL_EVENT_QUIT)
                     running = false;
 

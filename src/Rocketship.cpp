@@ -62,3 +62,9 @@ void Rocketship::shoot()
     auto bullet = std::make_shared<Bullet>(bulletX, bulletY, 10.0f);
     demo::eng.add(bullet);
 }
+
+void Rocketship::onResize(int newWidth, int newHeight)
+{
+    rect.x = (newWidth / 2.0f) - (rect.w / 2.0f);
+    rect.y = newHeight - rect.h - 20.0f; 
+}

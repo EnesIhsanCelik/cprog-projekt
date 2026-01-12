@@ -30,4 +30,10 @@ namespace demo {
     Label::~Label(){
         SDL_DestroyTexture(texture);
     }
+
+    void Label::onResize(int newWidth, int newHeight)
+    {
+        rect.x = newW - rect.w - 20.0f;
+        rect.y = 20.0f;
+    }
 }

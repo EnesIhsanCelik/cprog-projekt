@@ -9,6 +9,7 @@ public:
     ~Rocketship();
     void tick() override;
     void onKeyDown(const SDL_Event &event) override;
+    void onResize(int newWidth, int newHeight) override;
 
 private:
     void shoot();
