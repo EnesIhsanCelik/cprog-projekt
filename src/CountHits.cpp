@@ -1,13 +1,23 @@
 #include <string>
 #include "CountHits.h"
-#include "Engine.h"
+using namespace std;
 
 namespace game {
-    
-    void funk(LaberPtr label, SpritePtr e);{
-        if (txt == "Öka") {
-            value++;
-        }        
-        label->setText(to_string(value));
+
+    int CountHits::score = 0;
+    demo::LabelPtr CountHits::scoreLabel = nullptr;
+
+    void CountHits::funk() {
+        score++;
+        if (scoreLabel) {
+            scoreLabel->setText("Score: " + to_string(score));
+        }
     }
+
+    void CountHits::reset() {
+        score = 0;
+        if (scoreLabel) {
+            scoreLabel->setText("Score: 0");
+        }
+    }   
 }

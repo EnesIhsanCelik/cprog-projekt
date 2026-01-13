@@ -1,10 +1,9 @@
 #pragma once
 #include <SDL3/SDL.h>
-#include <SDL3_ttf/SDL_ttf.h>
 #include <vector>
 #include <memory>
 #include "Constants.h"
-
+#include <SDL3_ttf/SDL_ttf.h>
 
 namespace demo {
     class Sprite;
@@ -27,8 +26,10 @@ namespace demo {
         SDL_Window* win;
         SDL_Renderer* ren;
         TTF_Font* font;
+        
         std::vector<SpritePtr> sprites, added, removed;
     };
 
     extern Engine eng;
 }
+

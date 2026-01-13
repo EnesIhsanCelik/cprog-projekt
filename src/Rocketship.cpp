@@ -3,7 +3,7 @@
 #include "Bullet.h"
 #include "Engine.h"
 
-Rocketship::Rocketship() : Sprite(constants::rocketship_str, 0, 0)
+Rocketship::Rocketship() : MovableSprite(constants::rocketship_str, 0, 0)
 {
     rect.w = 64.f;
     rect.h = 64.f;
@@ -35,9 +35,9 @@ Rocketship::~Rocketship()
 void Rocketship::tick()
 {
     const bool *keys = SDL_GetKeyboardState(NULL);
-    if (keys[SDL_SCANCODE_LEFT] && getRect().x > 0)
+    if (keys[SDL_SCANCODE_LEFT] && rect.x > 0)
         move(-4, 0);
-    if (keys[SDL_SCANCODE_RIGHT] && getRect().x < (constants::gScreenWidth - getRect().w))
+    if (keys[SDL_SCANCODE_RIGHT] && rect.x < (constants::gScreenWidth - rect.w))
         move(4, 0);
 }
 
@@ -49,22 +49,23 @@ void Rocketship::onKeyDown(const SDL_Event &event)
     }
 }
 
-void Rocketship::shoot() 
+void Rocketship::shoot()
 {
     if (shotStream && shotBuf)
     {
         SDL_ClearAudioStream(shotStream);
         SDL_PutAudioStreamData(shotStream, shotBuf, shotLen);
     }
-    float bulletX = rect.x + (rect.w / 2); 
+
+    float bulletX = rect.x + (rect.w / 12);
     float bulletY = rect.y;
 
     auto bullet = std::make_shared<Bullet>(bulletX, bulletY, 10.0f);
     demo::eng.add(bullet);
 }
 
-void Rocketship::onResize(int newWidth, int newHeight)
+void Rocketship::onResize(int newW, int newH)
 {
-    rect.x = (newWidth / 2.0f) - (rect.w / 2.0f);
-    rect.y = newHeight - rect.h - 20.0f; 
+    rect.x = (newW / 2.0f) - (rect.w / 2.0f);
+    rect.y = newH - rect.h - 20.0f;  
 }

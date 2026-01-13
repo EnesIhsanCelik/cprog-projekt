@@ -1,7 +1,7 @@
 #pragma once
-#include "Sprite.h"
+#include "MovableSprite.h"
 
-class Bullet : public demo::Sprite
+class Bullet : public demo::MovableSprite
 {
 public:
     Bullet(float x, float y, float speed);

@@ -1,15 +1,15 @@
 #pragma once
-#include "Sprite.h"
+#include "MovableSprite.h"
 #include <SDL3/SDL.h>
 
-class Rocketship : public demo::Sprite
+class Rocketship : public demo::MovableSprite
 {
 public:
     Rocketship();
     ~Rocketship();
     void tick() override;
     void onKeyDown(const SDL_Event &event) override;
-    void onResize(int newWidth, int newHeight) override;
+    void onResize(int newW, int newH) override;
 
 private:
     void shoot();
