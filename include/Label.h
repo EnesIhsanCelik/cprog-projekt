@@ -1,22 +1,22 @@
 #pragma once
-#include "GameObjects.h"
+#include "Sprite.h"
 #include <string>
 #include <memory>
 
 namespace demo {
     class Label;
-    typedef std::shared_ptr<Label> LabelPtr;
+    using LabelPtr = std::shared_ptr<Label>;
 
     class Label : public Sprite {
     public:
         static LabelPtr make(float x, float y, float w, float h, std::string txt);
-        ~Label() {}
+        ~Label();
         
-        void draw() const;
-        void tick() {}
+        void draw() const override;
+        void tick() override {}
         void setText(std::string newText);
         std::string getText() const { return text; }
-        void onResize(int newWidth, int newHeight) override;
+        void onResize(int newW, int newH) override;
 
     protected:
         Label(float x, float y, float w, float h, std::string txt);

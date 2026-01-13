@@ -1,17 +1,15 @@
 #include "Background.h"
 #include "Engine.h"
 
-
-// Implementationen av rörliga bakgrunden
 namespace demo {
-    Background::Background(float y) : Sprite(constants::background2_str, 0, y) {
+    Background::Background(float y) : MovableSprite(constants::background2_str, 0, y) {
         rect.w = static_cast<float>(constants::gScreenWidth);
-        rect.h = static_cast<float>(constants::gScreenHeight);
+        rect.h = static_cast<float>(constants::gScreenHeight) + 2.0f;
     }
 
     void Background::tick()
     {
-        float speed = 0.3f; //hastighet på scrollning
+        float speed = 1.0f;
         rect.y += speed;
         if (rect.y >= constants::gScreenHeight) {
             rect.y -= constants::gScreenHeight * 2;
@@ -23,6 +21,4 @@ namespace demo {
         rect.w = static_cast<float>(newW);
         rect.h = static_cast<float>(newH);
     }
-
-
 }
