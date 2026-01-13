@@ -1,6 +1,8 @@
 # cprog-projekt
 CPROG Grupparbete Grupp 6
-Enes Ihsan Celik
-Emilia Ruth Sullivan
-Johan Nordström
+
+GRUPPMEDLEMMAR
+- Emilia Ruth Sullivan
+- Enes Ihsan Celik
+- Johan Nordström
 
